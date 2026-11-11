@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BayarBookingIdRouteImport } from './routes/bayar.$bookingId'
+import { Route as BookingCapsterIdRouteImport } from './routes/booking.$capsterId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BayarBookingIdRoute = BayarBookingIdRouteImport.update({
+  id: '/bayar/$bookingId',
+  path: '/bayar/$bookingId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookingCapsterIdRoute = BookingCapsterIdRouteImport.update({
+  id: '/booking/$capsterId',
+  path: '/booking/$capsterId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bayar/$bookingId': typeof BayarBookingIdRoute
+  '/booking/$capsterId': typeof BookingCapsterIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bayar/$bookingId': typeof BayarBookingIdRoute
+  '/booking/$capsterId': typeof BookingCapsterIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bayar/$bookingId': typeof BayarBookingIdRoute
+  '/booking/$capsterId': typeof BookingCapsterIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/bayar/$bookingId' | '/booking/$capsterId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/bayar/$bookingId' | '/booking/$capsterId'
+  id: '__root__' | '/' | '/bayar/$bookingId' | '/booking/$capsterId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BayarBookingIdRoute: typeof BayarBookingIdRoute
+  BookingCapsterIdRoute: typeof BookingCapsterIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bayar/$bookingId': {
+      id: '/bayar/$bookingId'
+      path: '/bayar/$bookingId'
+      fullPath: '/bayar/$bookingId'
+      preLoaderRoute: typeof BayarBookingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/booking/$capsterId': {
+      id: '/booking/$capsterId'
+      path: '/booking/$capsterId'
+      fullPath: '/booking/$capsterId'
+      preLoaderRoute: typeof BookingCapsterIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BayarBookingIdRoute: BayarBookingIdRoute,
+  BookingCapsterIdRoute: BookingCapsterIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
