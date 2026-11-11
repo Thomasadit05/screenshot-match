@@ -59,7 +59,8 @@ const PAYMENT: Record<PaymentStatus, Def> = {
   refunded: { label: "Refund Selesai", tone: "info", icon: RotateCcw },
 };
 
-const CAPSTER: Record<CapsterDisplayStatus, Def> = {
+const CAPSTER: Record<CapsterDisplayStatus | "active", Def> = {
+  active: { label: "Aktif", tone: "success", icon: UserCheck },
   inactive: { label: "Belum Aktif", tone: "neutral", icon: CircleDashed },
   available: { label: "Tersedia", tone: "success", icon: UserCheck },
   serving: { label: "Sedang Melayani", tone: "dark", icon: Scissors },
@@ -71,7 +72,7 @@ const CAPSTER: Record<CapsterDisplayStatus, Def> = {
 type Props =
   | { kind: "booking"; value: BookingBadgeValue }
   | { kind: "payment"; value: PaymentStatus }
-  | { kind: "capster"; value: CapsterDisplayStatus }
+  | { kind: "capster"; value: CapsterDisplayStatus | "active" }
   | { kind: "shop"; value: boolean };
 
 export function StatusBadge(props: Props & { className?: string; size?: "sm" | "md" }) {

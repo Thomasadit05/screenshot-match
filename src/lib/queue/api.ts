@@ -24,7 +24,7 @@ export type ApiErrorKind = "offline" | "server" | "validation" | "conflict" | "a
 
 export class ApiError extends Error {
   kind: ApiErrorKind;
-  fieldErrors?: BookingErrors;
+  fieldErrors?: BookingErrors | undefined;
   constructor(kind: ApiErrorKind, message: string, fieldErrors?: BookingErrors) {
     super(message);
     this.kind = kind;
@@ -149,7 +149,7 @@ export async function simulatePayment(bookingId: string, outcome: PaymentOutcome
       b.queuedAt = Date.now();
       b.payment.status = "paid";
       b.payment.paidAt = Date.now();
-      b.payment.type = types[s.queueCounter % types.length];
+      b.payment.type = types[s.queueCounter % types.length] ?? "qris";
     } else if (outcome === "pending") {
       b.payment.type = "bank_transfer";
     } else if (outcome === "failed") {

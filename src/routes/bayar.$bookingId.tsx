@@ -91,6 +91,7 @@ function PaymentPanel({ booking, capsterName }: { booking: Booking; capsterName:
       );
       return () => clearTimeout(t);
     }
+    return undefined;
   }, [phase, navigate, booking.id]);
 
   const run = async (outcome: PaymentOutcome) => {

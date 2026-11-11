@@ -10,12 +10,37 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as CapsterRouteImport } from './routes/capster'
+import { Route as DisplayRouteImport } from './routes/display'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as BayarBookingIdRouteImport } from './routes/bayar.$bookingId'
 import { Route as BookingCapsterIdRouteImport } from './routes/booking.$capsterId'
+import { Route as TiketBookingIdRouteImport } from './routes/tiket.$bookingId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CapsterRoute = CapsterRouteImport.update({
+  id: '/capster',
+  path: '/capster',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DisplayRoute = DisplayRouteImport.update({
+  id: '/display',
+  path: '/display',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BayarBookingIdRoute = BayarBookingIdRouteImport.update({
@@ -28,35 +53,85 @@ const BookingCapsterIdRoute = BookingCapsterIdRouteImport.update({
   path: '/booking/$capsterId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TiketBookingIdRoute = TiketBookingIdRouteImport.update({
+  id: '/tiket/$bookingId',
+  path: '/tiket/$bookingId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/capster': typeof CapsterRoute
+  '/display': typeof DisplayRoute
+  '/login': typeof LoginRoute
   '/bayar/$bookingId': typeof BayarBookingIdRoute
   '/booking/$capsterId': typeof BookingCapsterIdRoute
+  '/tiket/$bookingId': typeof TiketBookingIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/capster': typeof CapsterRoute
+  '/display': typeof DisplayRoute
+  '/login': typeof LoginRoute
   '/bayar/$bookingId': typeof BayarBookingIdRoute
   '/booking/$capsterId': typeof BookingCapsterIdRoute
+  '/tiket/$bookingId': typeof TiketBookingIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/capster': typeof CapsterRoute
+  '/display': typeof DisplayRoute
+  '/login': typeof LoginRoute
   '/bayar/$bookingId': typeof BayarBookingIdRoute
   '/booking/$capsterId': typeof BookingCapsterIdRoute
+  '/tiket/$bookingId': typeof TiketBookingIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bayar/$bookingId' | '/booking/$capsterId'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/capster'
+    | '/display'
+    | '/login'
+    | '/bayar/$bookingId'
+    | '/booking/$capsterId'
+    | '/tiket/$bookingId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bayar/$bookingId' | '/booking/$capsterId'
-  id: '__root__' | '/' | '/bayar/$bookingId' | '/booking/$capsterId'
+  to:
+    | '/'
+    | '/admin'
+    | '/capster'
+    | '/display'
+    | '/login'
+    | '/bayar/$bookingId'
+    | '/booking/$capsterId'
+    | '/tiket/$bookingId'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/capster'
+    | '/display'
+    | '/login'
+    | '/bayar/$bookingId'
+    | '/booking/$capsterId'
+    | '/tiket/$bookingId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  CapsterRoute: typeof CapsterRoute
+  DisplayRoute: typeof DisplayRoute
+  LoginRoute: typeof LoginRoute
   BayarBookingIdRoute: typeof BayarBookingIdRoute
   BookingCapsterIdRoute: typeof BookingCapsterIdRoute
+  TiketBookingIdRoute: typeof TiketBookingIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +141,34 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/capster': {
+      id: '/capster'
+      path: '/capster'
+      fullPath: '/capster'
+      preLoaderRoute: typeof CapsterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/display': {
+      id: '/display'
+      path: '/display'
+      fullPath: '/display'
+      preLoaderRoute: typeof DisplayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bayar/$bookingId': {
@@ -82,13 +185,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookingCapsterIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tiket/$bookingId': {
+      id: '/tiket/$bookingId'
+      path: '/tiket/$bookingId'
+      fullPath: '/tiket/$bookingId'
+      preLoaderRoute: typeof TiketBookingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  CapsterRoute: CapsterRoute,
+  DisplayRoute: DisplayRoute,
+  LoginRoute: LoginRoute,
   BayarBookingIdRoute: BayarBookingIdRoute,
   BookingCapsterIdRoute: BookingCapsterIdRoute,
+  TiketBookingIdRoute: TiketBookingIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

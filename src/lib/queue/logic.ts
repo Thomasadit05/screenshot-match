@@ -188,7 +188,7 @@ export interface BookingInput {
   promoOptIn: boolean;
 }
 
-export type BookingErrors = Partial<Record<"name" | "phone" | "consent" | "form", string>>;
+export type BookingErrors = Partial<Record<"name" | "phone" | "consent" | "form", string | undefined>>;
 
 export function validateBooking(state: QueueState, capsterId: string, input: BookingInput): BookingErrors {
   const errors: BookingErrors = {};

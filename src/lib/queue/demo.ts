@@ -30,7 +30,7 @@ function extraWaiting(capsterId: string, count: number, startIndex: number, now:
     list.push({
       id: `bk-demo-${capsterId}-${n}`,
       queueNumber: formatQueueNumber(q),
-      customerName: NAMES[(startIndex + i) % NAMES.length],
+      customerName: NAMES[(startIndex + i) % NAMES.length] ?? "Arif",
       phone: `0819000${String(n).padStart(5, "0")}`,
       capsterId,
       status: "waiting",
@@ -86,9 +86,10 @@ export function applyScenario(id: Scenario) {
     }
     if (id === "serving") {
       const extra = extraWaiting("bima", 1, 0, now);
-      extra[0].status = "in_service";
-      extra[0].calledAt = now - 8 * MINUTE;
-      extra[0].startedAt = now - 6 * MINUTE;
+      const first = extra[0]!;
+      first.status = "in_service";
+      first.calledAt = now - 8 * MINUTE;
+      first.startedAt = now - 6 * MINUTE;
       s.bookings.push(...extra);
       s.orderCounter += 1;
       s.queueCounter += 1;

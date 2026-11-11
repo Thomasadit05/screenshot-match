@@ -68,7 +68,7 @@ export function DemoStatePanel() {
   const onDisplay = pathname.startsWith("/display");
 
   const findTicket = (pred: (b: Booking) => boolean) => state.bookings.find(pred);
-  const tickets: { label: string; booking?: Booking; prepare?: () => string | null }[] = [
+  const tickets: { label: string; booking?: Booking | undefined; prepare?: () => string | null }[] = [
     { label: "Menunggu", booking: findTicket((b) => b.status === "waiting" && !b.calledAt) },
     {
       label: "Dipanggil",
@@ -89,8 +89,7 @@ export function DemoStatePanel() {
     { label: "Refunded", booking: findTicket((b) => b.payment.status === "refunded") },
   ];
 
-  const go = (to: string, params?: Record<string, string>) =>
-    void navigate({ to, params } as Parameters<typeof navigate>[0]);
+  const go = (opts: Parameters<typeof navigate>[0]) => void navigate(opts);
 
   return (
     <Sheet>
@@ -117,27 +116,27 @@ export function DemoStatePanel() {
         <div className="mt-5 space-y-5 pb-8">
           <Section title="Buka halaman">
             <div className="grid grid-cols-2 gap-1.5">
-              <Chip active={pathname === "/"} onClick={() => go("/")}>Beranda</Chip>
-              <Chip onClick={() => go("/booking/$capsterId", { capsterId: "bima" })}>Form Booking</Chip>
+              <Chip active={pathname === "/"} onClick={() => go({ to: "/" })}>Beranda</Chip>
+              <Chip onClick={() => go({ to: "/booking/$capsterId", params: { capsterId: "bima" } })}>Form Booking</Chip>
               <Chip
                 onClick={() => {
                   const id = createDemoPendingBooking();
-                  go("/bayar/$bookingId", { bookingId: id });
+                  go({ to: "/bayar/$bookingId", params: { bookingId: id } });
                 }}
               >
                 Pembayaran Sandbox
               </Chip>
               <Chip
                 disabled={!state.lastBookingId}
-                onClick={() => state.lastBookingId && go("/tiket/$bookingId", { bookingId: state.lastBookingId })}
+                onClick={() => state.lastBookingId && go({ to: "/tiket/$bookingId", params: { bookingId: state.lastBookingId } })}
               >
                 Tiket terakhir
               </Chip>
-              <Chip onClick={() => go("/login")}>Login Pegawai</Chip>
+              <Chip onClick={() => go({ to: "/login" })}>Login Pegawai</Chip>
               <Chip
                 onClick={() => {
                   demoLogin({ role: "admin" });
-                  go("/admin");
+                  go({ to: "/admin" });
                 }}
               >
                 Dashboard Admin
@@ -145,7 +144,7 @@ export function DemoStatePanel() {
               <Chip
                 onClick={() => {
                   demoLogin({ role: "capster", capsterId: "adit" });
-                  go("/capster");
+                  go({ to: "/capster" });
                 }}
               >
                 Capster (Adit)
@@ -153,12 +152,12 @@ export function DemoStatePanel() {
               <Chip
                 onClick={() => {
                   demoLogin({ role: "capster", capsterId: "bima" });
-                  go("/capster");
+                  go({ to: "/capster" });
                 }}
               >
                 Capster (Bima)
               </Chip>
-              <Chip active={onDisplay} onClick={() => go("/display")}>Display Ruang Tunggu</Chip>
+              <Chip active={onDisplay} onClick={() => go({ to: "/display" })}>Display Ruang Tunggu</Chip>
             </div>
           </Section>
 
@@ -222,7 +221,7 @@ export function DemoStatePanel() {
                   disabled={!t.booking}
                   onClick={() => {
                     const id = t.prepare ? t.prepare() : t.booking?.id;
-                    if (id) go("/tiket/$bookingId", { bookingId: id });
+                    if (id) go({ to: "/tiket/$bookingId", params: { bookingId: id } });
                   }}
                 >
                   {t.label}
