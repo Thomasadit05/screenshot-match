@@ -13,7 +13,7 @@ export interface CapsterCardProps {
   remainingMinutes: number;
   etaMinutes: number;
   canBook: boolean;
-  disabledReason?: string;
+  disabledReason?: string | undefined;
 }
 
 export function CapsterCard({

@@ -81,7 +81,7 @@ function CapsterDashboard({ capsterId }: { capsterId: string }) {
         {working ? (
           <ConfirmationDialog
             trigger={
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto">
                 <Power aria-hidden /> Selesai Kerja
               </Button>
             }
@@ -95,7 +95,7 @@ function CapsterDashboard({ capsterId }: { capsterId: string }) {
             onConfirm={() => setCapsterShift(capsterId, "finished")}
           />
         ) : (
-          <ActionButton size="xl" variant="success" onAction={() => setCapsterShift(capsterId, "active")} successText="Anda aktif">
+          <ActionButton size="xl" variant="success" className="w-full sm:w-auto" onAction={() => setCapsterShift(capsterId, "active")} successText="Anda aktif">
             <Power aria-hidden /> Aktif
           </ActionButton>
         )}

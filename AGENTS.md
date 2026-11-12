@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Frontend-only prototype: all data lives in `src/lib/queue/` (types, config, pure `logic.ts`, `store.ts` localStorage store, `api.ts` mock endpoints, `demo.ts` demo-only controls). UI never writes the store directly except via `api.ts`/`demo.ts` — keeps the UI portable to a Laravel Blade + JSON API backend.
+- Business rules (ETA, quota, validation, no-show/start rules) stay pure in `logic.ts` with tests in `logic.test.ts`.
+- Shared live state is one localStorage-backed store synced across tabs; a single `LiveFeedProvider` simulates 5-second polling and loading/offline/error states.
+- Staff "auth" is a mock session in the store; `StaffShell` gates /admin and /capster client-side.

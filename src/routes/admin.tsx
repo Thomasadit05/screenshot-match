@@ -125,7 +125,7 @@ function AdminDashboard() {
       </section>
 
       <FeedGate skeleton={<LoadingSkeleton variant="table" count={6} />}>
-        <section aria-label="Ringkasan hari ini" className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-7">
+        <section aria-label="Ringkasan hari ini" className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           <SummaryCard label="Booking Terbayar" value={paid.length} icon={Ticket} tone="bronze" />
           <SummaryCard label="Sedang Menunggu" value={b.filter((x) => x.status === "waiting").length} icon={Clock} />
           <SummaryCard label="Sedang Dilayani" value={b.filter((x) => x.status === "in_service").length} icon={Scissors} tone="dark" />
@@ -279,7 +279,7 @@ function QueueTable({ state, onDetail }: { state: QueueState; onDetail: (b: Book
             <tbody>
               {rows.map((b) => (
                 <tr key={b.id} className="border-b border-border last:border-0 hover:bg-muted/40">
-                  <td className="px-3 py-2.5 font-display text-lg font-bold tabular">{b.queueNumber ?? "—"}</td>
+                  <td className="px-3 py-2.5 font-display text-lg font-bold whitespace-nowrap tabular">{b.queueNumber ?? "—"}</td>
                   <td className="px-3 py-2.5 font-medium">{b.customerName}</td>
                   <td className="px-3 py-2.5 tabular text-muted-foreground">{maskPhone(b.phone)}</td>
                   <td className="px-3 py-2.5">{name(b.capsterId)}</td>

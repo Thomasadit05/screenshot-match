@@ -148,9 +148,9 @@ function BookingForm({ capsterId, summary }: { capsterId: string; summary: Retur
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-5">
-      <section aria-label="Capster dipilih" className="surface-card flex items-center gap-3 p-4">
+      <section aria-label="Capster dipilih" className="surface-card flex flex-wrap items-center gap-3 p-4">
         <CapsterAvatar name={capster.name} />
-        <div className="min-w-0 flex-1">
+        <div className="min-w-[10rem] flex-1">
           <p className="text-xs text-muted-foreground">Capster dipilih</p>
           <p className="font-display text-2xl leading-none font-bold">{capster.name}</p>
           <p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">

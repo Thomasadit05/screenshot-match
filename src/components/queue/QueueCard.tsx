@@ -33,8 +33,8 @@ export function QueueCard({ booking, variant = "row", eyebrow, meta, actions, sh
         <p className={cn("font-display font-bold tabular leading-none", big ? "text-6xl" : variant === "next" ? "text-4xl" : "text-3xl")}>
           {booking.queueNumber ?? "—"}
         </p>
-        <div className="min-w-0 flex-1">
-          <p className={cn("font-semibold", big ? "text-xl" : "text-base")}>{booking.customerName}</p>
+        <div className="min-w-[7.5rem] flex-1">
+          <p className={cn("font-semibold break-words", big ? "text-xl" : "text-base")}>{booking.customerName}</p>
           {showPhone && (
             <p className={cn("text-sm tabular", big ? "text-cream/70" : "text-muted-foreground")}>{maskPhone(booking.phone)}</p>
           )}
